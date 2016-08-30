@@ -1,0 +1,11 @@
+{
+  "name": "foundation",
+  "_cacheHeaders": {
+    "Last-Modified": "Fri, 27 May 2016 17:01:57 GMT",
+    "Content-Type": "text/css"
+  },
+  "main": "index.css",
+  "_source": "https://cdnjs.cloudflare.com/ajax/libs/foundation/6.2.3/foundation.css",
+  "_target": "*",
+  "_originalSource": "https://cdnjs.cloudflare.com/ajax/libs/foundation/6.2.3/foundation.css"
+}
