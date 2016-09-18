@@ -11,7 +11,7 @@ module.exports = {
     cache: true,
 
     devtool: "source-map",
-    
+
     module: {
         loaders: [
             {
@@ -36,6 +36,14 @@ module.exports = {
             }
         ]
     },
+
+    plugins: [
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            }
+        })
+    ],
 
     resolve: {
         extensions: ["", ".js", ".jsx"]
