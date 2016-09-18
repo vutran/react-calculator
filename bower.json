@@ -1,0 +1,24 @@
+{
+  "name": "react-calculator",
+  "description": "A calculator with React and Redux for learning purposes.",
+  "main": "index.js",
+  "authors": [
+    "Sylphony"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/Sylphony/react-calculator",
+  "moduleType": [
+    "es6"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "foundation": "https://cdnjs.cloudflare.com/ajax/libs/foundation/6.2.3/foundation.css"
+  }
+}
