@@ -4,9 +4,12 @@
 
 import { combineReducers } from "redux";
 
+import calculator from "./calculator";
+
 
 const allReducers = combineReducers({
     /* The reducers here */
+    calculator
 });
 
 export default allReducers;
