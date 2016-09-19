@@ -458,11 +458,11 @@
 
 	var _reactRedux = __webpack_require__(179);
 
-	var _store = __webpack_require__(202);
+	var _store = __webpack_require__(207);
 
 	var _store2 = _interopRequireDefault(_store);
 
-	var _CalculatorContainer = __webpack_require__(208);
+	var _CalculatorContainer = __webpack_require__(211);
 
 	var _CalculatorContainer2 = _interopRequireDefault(_CalculatorContainer);
 
@@ -496,10 +496,6 @@
 	//     user: userReducer,
 	//     tweets: tweetsReducer
 	// });
-
-	// const store = createStore(reducers);
-
-	// store.dispatch({ type: "ADD", num1: 1, num2: 2 });
 
 	// store.dispatch({ type: "changeUser" , payload: "Person" });
 	// store.dispatch({ type: "changeAge" , payload: 35 });
@@ -22081,15 +22077,15 @@
 
 	var _warning2 = _interopRequireDefault(_warning);
 
-	var _isPlainObject = __webpack_require__(188);
+	var _isPlainObject = __webpack_require__(200);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _hoistNonReactStatics = __webpack_require__(200);
+	var _hoistNonReactStatics = __webpack_require__(205);
 
 	var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
 
-	var _invariant = __webpack_require__(201);
+	var _invariant = __webpack_require__(206);
 
 	var _invariant2 = _interopRequireDefault(_invariant);
 
@@ -23353,6 +23349,176 @@
 
 /***/ },
 /* 200 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var getPrototype = __webpack_require__(201),
+	    isHostObject = __webpack_require__(203),
+	    isObjectLike = __webpack_require__(204);
+
+	/** `Object#toString` result references. */
+	var objectTag = '[object Object]';
+
+	/** Used for built-in method references. */
+	var funcProto = Function.prototype,
+	    objectProto = Object.prototype;
+
+	/** Used to resolve the decompiled source of functions. */
+	var funcToString = funcProto.toString;
+
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+
+	/** Used to infer the `Object` constructor. */
+	var objectCtorString = funcToString.call(Object);
+
+	/**
+	 * Used to resolve the
+	 * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var objectToString = objectProto.toString;
+
+	/**
+	 * Checks if `value` is a plain object, that is, an object created by the
+	 * `Object` constructor or one with a `[[Prototype]]` of `null`.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.8.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
+	 * @example
+	 *
+	 * function Foo() {
+	 *   this.a = 1;
+	 * }
+	 *
+	 * _.isPlainObject(new Foo);
+	 * // => false
+	 *
+	 * _.isPlainObject([1, 2, 3]);
+	 * // => false
+	 *
+	 * _.isPlainObject({ 'x': 0, 'y': 0 });
+	 * // => true
+	 *
+	 * _.isPlainObject(Object.create(null));
+	 * // => true
+	 */
+	function isPlainObject(value) {
+	  if (!isObjectLike(value) ||
+	      objectToString.call(value) != objectTag || isHostObject(value)) {
+	    return false;
+	  }
+	  var proto = getPrototype(value);
+	  if (proto === null) {
+	    return true;
+	  }
+	  var Ctor = hasOwnProperty.call(proto, 'constructor') && proto.constructor;
+	  return (typeof Ctor == 'function' &&
+	    Ctor instanceof Ctor && funcToString.call(Ctor) == objectCtorString);
+	}
+
+	module.exports = isPlainObject;
+
+
+/***/ },
+/* 201 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var overArg = __webpack_require__(202);
+
+	/** Built-in value references. */
+	var getPrototype = overArg(Object.getPrototypeOf, Object);
+
+	module.exports = getPrototype;
+
+
+/***/ },
+/* 202 */
+/***/ function(module, exports) {
+
+	/**
+	 * Creates a unary function that invokes `func` with its argument transformed.
+	 *
+	 * @private
+	 * @param {Function} func The function to wrap.
+	 * @param {Function} transform The argument transform.
+	 * @returns {Function} Returns the new function.
+	 */
+	function overArg(func, transform) {
+	  return function(arg) {
+	    return func(transform(arg));
+	  };
+	}
+
+	module.exports = overArg;
+
+
+/***/ },
+/* 203 */
+/***/ function(module, exports) {
+
+	/**
+	 * Checks if `value` is a host object in IE < 9.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a host object, else `false`.
+	 */
+	function isHostObject(value) {
+	  // Many host objects are `Object` objects that can coerce to strings
+	  // despite having improperly defined `toString` methods.
+	  var result = false;
+	  if (value != null && typeof value.toString != 'function') {
+	    try {
+	      result = !!(value + '');
+	    } catch (e) {}
+	  }
+	  return result;
+	}
+
+	module.exports = isHostObject;
+
+
+/***/ },
+/* 204 */
+/***/ function(module, exports) {
+
+	/**
+	 * Checks if `value` is object-like. A value is object-like if it's not `null`
+	 * and has a `typeof` result of "object".
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+	 * @example
+	 *
+	 * _.isObjectLike({});
+	 * // => true
+	 *
+	 * _.isObjectLike([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isObjectLike(_.noop);
+	 * // => false
+	 *
+	 * _.isObjectLike(null);
+	 * // => false
+	 */
+	function isObjectLike(value) {
+	  return !!value && typeof value == 'object';
+	}
+
+	module.exports = isObjectLike;
+
+
+/***/ },
+/* 205 */
 /***/ function(module, exports) {
 
 	/**
@@ -23408,7 +23574,7 @@
 
 
 /***/ },
-/* 201 */
+/* 206 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -23466,7 +23632,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)))
 
 /***/ },
-/* 202 */
+/* 207 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -23477,7 +23643,7 @@
 
 	var _redux = __webpack_require__(186);
 
-	var _index = __webpack_require__(203);
+	var _index = __webpack_require__(208);
 
 	var _index2 = _interopRequireDefault(_index);
 
@@ -23488,7 +23654,7 @@
 	exports.default = store;
 
 /***/ },
-/* 203 */
+/* 208 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -23499,7 +23665,7 @@
 
 	var _redux = __webpack_require__(186);
 
-	var _calculator = __webpack_require__(204);
+	var _calculator = __webpack_require__(209);
 
 	var _calculator2 = _interopRequireDefault(_calculator);
 
@@ -23507,7 +23673,6 @@
 
 	// In reducers/index.js, all reducers are imported and combined.
 	// To that, the combineReducers() from the redux lib is used.
-
 
 	var allReducers = (0, _redux.combineReducers)({
 	    /* The reducers here */
@@ -23517,7 +23682,7 @@
 	exports.default = allReducers;
 
 /***/ },
-/* 204 */
+/* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -23526,28 +23691,28 @@
 	    value: true
 	});
 
-	var _actionCreators = __webpack_require__(205);
+	var _actionCreators = __webpack_require__(210);
 
 	function calculator() {
-	    var state = arguments.length <= 0 || arguments[0] === undefined ? 3 : arguments[0];
+	    var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 	    var action = arguments[1];
 
 	    switch (action.type) {
 	        case "ADD":
-	            state = Object.assign({}, state);
+	            state = Object.assign({}, state, { num: action.num1 }); // Is this mutation?
 	            break;
 	    }
 
 	    console.log("Run calculator");
-	    console.log(action);
+	    console.log(state);
 
-	    return state;
+	    return state; // If it returns the new state, why isn't it updating in the component?
 	}
 
 	exports.default = calculator;
 
 /***/ },
-/* 205 */
+/* 210 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -23576,7 +23741,52 @@
 	}
 
 /***/ },
-/* 206 */
+/* 211 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(8);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _redux = __webpack_require__(186);
+
+	var _reactRedux = __webpack_require__(179);
+
+	var _Calculator = __webpack_require__(212);
+
+	var _Calculator2 = _interopRequireDefault(_Calculator);
+
+	var _actionCreators = __webpack_require__(210);
+
+	var actionCreators = _interopRequireWildcard(_actionCreators);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function mapStateToProps(state) {
+	    return {
+	        num: state.num
+	    };
+	}
+
+	function mapDispatchToProps(dispatch) {
+	    // Bind all action creators to dispatch
+	    return (0, _redux.bindActionCreators)(actionCreators, dispatch);
+	}
+
+	var CalculatorContainer = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_Calculator2.default);
+
+	exports.default = CalculatorContainer;
+
+/***/ },
+/* 212 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -23591,7 +23801,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _CalculatorButton = __webpack_require__(207);
+	var _CalculatorButton = __webpack_require__(213);
 
 	var _CalculatorButton2 = _interopRequireDefault(_CalculatorButton);
 
@@ -23615,17 +23825,20 @@
 	    _createClass(Calculator, [{
 	        key: "render",
 	        value: function render() {
+	            console.log("render");
+	            console.log(this.props);
 	            return _react2.default.createElement(
 	                "div",
 	                { className: "row expanded" },
 	                _react2.default.createElement(
 	                    "span",
 	                    null,
-	                    this.state.num1
+	                    this.props.num,
+	                    "A"
 	                ),
 	                _react2.default.createElement(
 	                    "button",
-	                    { type: "button", className: "button", onClick: this.props.add },
+	                    { type: "button", className: "button", onClick: this.props.add.bind(null, 1, 5) },
 	                    "Add"
 	                )
 	            );
@@ -23638,7 +23851,7 @@
 	exports.default = Calculator;
 
 /***/ },
-/* 207 */
+/* 213 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -23690,49 +23903,6 @@
 	}(_react2.default.Component);
 
 	exports.default = CalculatorButton;
-
-/***/ },
-/* 208 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _react = __webpack_require__(8);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRedux = __webpack_require__(179);
-
-	var _Calculator = __webpack_require__(206);
-
-	var _Calculator2 = _interopRequireDefault(_Calculator);
-
-	var _actionCreators = __webpack_require__(205);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var mapStateToProps = function mapStateToProps(state) {
-	    return {
-	        num1: "Hello"
-	    };
-	};
-
-	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	    return {
-	        add: function add() {
-	            console.log("Execute");
-	            dispatch((0, _actionCreators.add)(1, 2));
-	        }
-	    };
-	};
-
-	var CalculatorContainer = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_Calculator2.default);
-
-	exports.default = CalculatorContainer;
 
 /***/ }
 /******/ ]);

@@ -1,26 +1,20 @@
 import React from "react";
+import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import Calculator from "./../components/Calculator.jsx";
-import { add, subtract } from "./../actions/actionCreators";
+import * as actionCreators from "./../actions/actionCreators";
 
-const mapStateToProps = (state) => {
+function mapStateToProps(state) {
     return {
-        num1: "Hello"
+        num: state.num
     };
-};
+}
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        add:() => {
-            console.log("Execute");
-            dispatch(add(1, 2));
-        }
-    };
-};
+function mapDispatchToProps(dispatch) {
+    // Bind all action creators to dispatch
+    return bindActionCreators(actionCreators, dispatch);
+}
 
-const CalculatorContainer = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Calculator);
+const CalculatorContainer = connect(mapStateToProps, mapDispatchToProps)(Calculator);
 
 export default CalculatorContainer;

@@ -28,10 +28,6 @@ import CalculatorContainer from "./calculator/containers/CalculatorContainer.jsx
 //     tweets: tweetsReducer
 // });
 
-// const store = createStore(reducers);
-
-// store.dispatch({ type: "ADD", num1: 1, num2: 2 });
-
 // store.dispatch({ type: "changeUser" , payload: "Person" });
 // store.dispatch({ type: "changeAge" , payload: 35 });
 // store.dispatch({ type: "changeAge" , payload: 36 });
@@ -45,8 +41,6 @@ class App extends React.Component {
         );
     }
 }
-
-
 
 ReactDOM.render(
     <App />,
