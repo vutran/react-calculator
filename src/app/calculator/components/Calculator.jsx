@@ -3,8 +3,7 @@ import CalculatorButton from "./CalculatorButton.jsx";
 
 class Calculator extends React.Component {
     render() {
-        console.log("render");
-        console.log(this.props);
+        console.log("Calculator render");
         return (
             <div className="row expanded">
                 <span>{ this.props.num }A</span>
@@ -18,10 +17,16 @@ class Calculator extends React.Component {
                 <CalculatorButton num="2" />
                 <CalculatorButton num="3" />
                 <CalculatorButton num="+" />*/}
-                <button type="button" className="button" onClick={ this.props.add.bind(null, 1, 5) }>Add</button>
+                <button type="button" className="button" onClick={ this.props.onAdd }>Add</button>
             </div>
         ); 
     }
 }
+
+Calculator.defaultProps = {
+    num: PropTypes.number,
+    onAdd: PropTypes.function,
+};
+
 
 export default Calculator;

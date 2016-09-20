@@ -4,6 +4,15 @@ import { connect } from "react-redux";
 import Calculator from "./../components/Calculator.jsx";
 import * as actionCreators from "./../actions/actionCreators";
 
+class CalculatorContainer extends React.Component {
+    render() {
+        console.log("CalculatorContainer render");
+        return (
+            <Calculator num={this.props.num} onAdd={ () => this.props.add(1, 5) } />
+        );
+    }
+}
+
 function mapStateToProps(state) {
     return {
         num: state.num
@@ -15,6 +24,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(actionCreators, dispatch);
 }
 
-const CalculatorContainer = connect(mapStateToProps, mapDispatchToProps)(Calculator);
-
-export default CalculatorContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(CalculatorContainer);

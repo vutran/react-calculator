@@ -36,7 +36,7 @@ class App extends React.Component {
     render() {
         return (
             <Provider store={store}>
-                <CalculatorContainer />
+                <CalculatorContainer/>
             </Provider>
         );
     }
